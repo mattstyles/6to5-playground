@@ -1,0 +1,9 @@
+{
+  "name": "6to5-playground",
+  "version": "0.0.0",
+  "dependencies": {
+      "lesshat": "~3.0.2",
+      "bootstrap": "~3.3.1",
+      "web-animations-js": "web-animations/web-animations-js#~1.0.5"
+  }
+}
