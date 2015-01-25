@@ -71,6 +71,22 @@ console.log( alex.job, alex.JOB, alex.occupation );
 import * as math from './lib/math';
 console.log( '3 + 4 =', math.sum( 3, 4 ) );
 
+// import transform to require
+import PIXI from 'pixi.js';
+console.log( 'pixi:', PIXI );
+import raf from 'animation-frame';
+
+var stage = new PIXI.Stage(0x66FF99);
+var renderer = PIXI.autoDetectRenderer(400, 300);
+document.body.appendChild(renderer.view);
+raf( animate );
+function animate() {
+    raf( animate );
+    renderer.render(stage);
+}
+
+
+
 // import assign from 'object-assign';
 // console.log( assign({ foo: 'foo'}, {bar: 'bar'}) );
 
