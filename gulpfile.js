@@ -21,7 +21,8 @@ var source      = require( 'vinyl-source-stream' );
 
 var browserify  = require( 'browserify' );
 var watchify    = require( 'watchify' );
-var to5ify     = require( '6to5ify' );
+var to5ify      = require( '6to5ify' );
+var flowcheck   = require( 'flowcheck' );
 
 
 /**
@@ -119,6 +120,10 @@ gulp.task( 'copy', function() {
         // The meat of the compile process
         function compile() {
             var compiler = watcher || bundler;
+
+            if ( !!args.d ) {
+                compiler.transform( flowcheck );
+            }
 
             return compiler
                 .transform( to5ify )

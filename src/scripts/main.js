@@ -102,3 +102,10 @@ var p = delay( 500 )
         console.log( `${ fnName } has resolved` );
     });
 console.log( p );
+
+// type checking with flowcheck
+function flow( x: String ) {
+    console.log( x );
+}
+flow( 'a string' ); // fine
+flow( 8 ); // will throw
