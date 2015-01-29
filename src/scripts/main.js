@@ -11,8 +11,8 @@ for ( ;; ) {
 try {
     console.log( 'out', varrer );
     console.log( 'out', letter );
-} catch(e) {
-    console.log( 'out of scope' );
+} catch( e ) {
+    console.log( 'out of scope', e );
 }
 
 // Classes
@@ -56,6 +56,18 @@ class Speaker extends Person {
     }
 }
 
+// private keyword - only with experimental flag
+class Engineer {
+    private TASK
+    constructor( name, job = 'Engineer' ) {
+        this::TASK = job;
+    }
+
+    get occupation() {
+        return 'Expert ' + this::TASK;
+    }
+}
+
 var speaker = new Speaker( 'Johnson' );
 window.Speaker = Speaker;
 speaker.say( 'hola' );
@@ -63,32 +75,32 @@ speaker.say( 'hola' );
 // privacy with symbols
 var john = new Speaker( 'John' );
 var alex = new Speaker( 'alex', 'Craftsman' );
-console.log( john.job, john.JOB, john.occupation );
-console.log( alex.job, alex.JOB, alex.occupation );
+var nina = new Engineer( 'Nina' );
+console.log( john.job, john.JOB, john.occupation ); // undefined undefined Speaker
+console.log( alex.job, alex.JOB, alex.occupation ); // undefined undefined Craftsman
+console.log( nina.task, nina.TASK, nina.occupation )
 
 
 // import
 import * as math from './lib/math';
 console.log( '3 + 4 =', math.sum( 3, 4 ) );
 
-// import transform to require
-import PIXI from 'pixi.js';
-console.log( 'pixi:', PIXI );
-import raf from 'animation-frame';
 
-var stage = new PIXI.Stage(0x66FF99);
-var renderer = PIXI.autoDetectRenderer(400, 300);
-document.body.appendChild(renderer.view);
-raf( animate );
-function animate() {
-    raf( animate );
-    renderer.render(stage);
-}
+/* import existing lib */
+// import PIXI from 'pixi.js';
+// console.log( 'pixi:', PIXI );
+// import raf from 'animation-frame';
+//
+// var stage = new PIXI.Stage(0x66FF99);
+// var renderer = PIXI.autoDetectRenderer(400, 300);
+// document.body.appendChild(renderer.view);
+// raf( animate );
+// function animate() {
+//     raf( animate );
+//     renderer.render(stage);
+// }
 
 
-
-// import assign from 'object-assign';
-// console.log( assign({ foo: 'foo'}, {bar: 'bar'}) );
 
 // Arrow function and promises
 function delay( duration = 0 ) {
@@ -99,13 +111,18 @@ function delay( duration = 0 ) {
 var p = delay( 500 )
     .then( () => {
         var fnName = 'delay';
+        // String literal
         console.log( `${ fnName } has resolved` );
     });
 console.log( p );
 
 // type checking with flowcheck
-function flow( x: String ) {
-    console.log( x );
+function flow( x: string ) {
+    console.log( 'flowcheck:', x );
 }
-flow( 'a string' ); // fine
-flow( 8 ); // will throw
+try {
+    flow( 'a string' ); // fine
+    //flow( 8 ); // will throw
+} catch( e ) {
+    console.log( 'flowcheck error', e );
+}

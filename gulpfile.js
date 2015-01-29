@@ -126,7 +126,9 @@ gulp.task( 'copy', function() {
             }
 
             return compiler
-                .transform( to5ify )
+                .transform( to5ify.configure({
+                    experimental: true
+                }) )
                 .bundle()
                 .on( 'error', $.util.log.bind( $.util, 'Browserify error' ) )
                 .pipe( source( 'main.js' ) )
